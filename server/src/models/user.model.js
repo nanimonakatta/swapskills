@@ -8,8 +8,8 @@ const userSchema = new Schema({
   balance: { type: Number, default: 500 },
   skills: { type: [String] },
   interest: { type: [String] },
-  coursesCompleted: { type: Schema.Types.ObjectId, default: 0 },
-  coursesTaught: { type: Schema.Types.ObjectId, default: 0 },
+  coursesCompleted: { type: Schema.Types.ObjectId },
+  coursesTaught: { type: Schema.Types.ObjectId },
   role: { type: [String], enum: ["student", "teacher"], required: true }
 })
 
