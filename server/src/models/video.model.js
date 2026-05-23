@@ -1,4 +1,4 @@
-import { Model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
 const videoSchema = new Schema({
   title: { type: String, required: true },
@@ -15,4 +15,4 @@ const videoSchema = new Schema({
   views: { type: Number, default: 0 }
 }, { timeStamps: true });
 
-export const Video = Model("Video", videoSchema);
+export const Video = model("Video", videoSchema);

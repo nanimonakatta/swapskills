@@ -3,6 +3,7 @@ import cors from "cors";
 import { errorHandler } from "./utils/errorHandler.js";
 import cookieParser from "cookie-parser";
 import { userRouter } from "./routes/user.routes.js";
+import { videoRouter } from './routes/video.routes.js'
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.json({ limit: "16kb" }));
 app.use(cookieParser());
 app.use('/api/v1/user/', userRouter);
+app.use('/api/v1/video/', videoRouter)
 
 app.use(errorHandler);
 
