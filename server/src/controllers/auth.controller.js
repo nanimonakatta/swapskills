@@ -1,10 +1,10 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js"
 import { User } from "../models/user.model.js";
 import z from "zod";
 import { options } from "../constants.js";
 import { generateTokens } from "../utils/generateTokens.js";
-import { parse } from "zod/v4/core";
 
 const registerUser = asyncHandler(
   async (req, res) => {
@@ -126,6 +126,16 @@ const logoutUser = asyncHandler(
       );
   }
 );
+
+const logUserIn = asyncHandler(
+  async (req, res) => {
+    
+  const validateSchema = z.object({
+    username: z.string().min(3).max(24).trim().toLowerCase()(),
+    password: z.string().min(8).max(50),
+    email: z.email()
+  })
+})
 
 export {
   registerUser

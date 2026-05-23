@@ -5,8 +5,8 @@ import path from "node:path";
 const MAX_MEMORY_SIZE = 1 * 1024 * 1024; // 1MB
 
 const fileFilter = function(req, file, cb) {
-  if (!file.mimetype.startsWith("image/")) {
-    return cb(new Error("Only images are allowed."));
+  if (!file.mimetype.startsWith("video/")) {
+    return cb(new Error("Only videos are allowed."));
   }
   cb(null, true);
 }
