@@ -15,7 +15,6 @@ export const uploadOnCloudinary = async function (file) {
   try {
     if (!file) throw new ApiError(400, "No file provided.");
     const MAX_MEMORY_SIZE = 1 * 1024 * 1024; // 1MB
-
     if (file.buffer && file.size <= MAX_MEMORY_SIZE) {
       return new Promise(function (resolve, reject) {
         const uploadStream = cloudinary.uploader.upload_stream(

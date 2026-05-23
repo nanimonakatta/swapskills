@@ -5,8 +5,8 @@ import path from "node:path";
 const MAX_MEMORY_SIZE = 1 * 1024 * 1024; // 1MB
 
 const fileFilter = function(req, file, cb) {
-  if (!file.mimetype.startsWith("video/")) {
-    return cb(new Error("Only videos are allowed."));
+  if (!file.mimetype.startsWith("video/") && !file.mimetype.startsWith("image/")) {
+    return cb(new Error("Only videos and images are allowed."));
   }
   cb(null, true);
 }
@@ -29,7 +29,7 @@ const hybridUpload = multer({
         if (totalSize > MAX_MEMORY_SIZE) {
           switchedToDisk = true;
           const buffer = Buffer.concat(chunks, totalSize);
-          const filePath = path.join(process.cwd(), "public/temp", fileName);
+          const filePath = path.join(process.cwd(), "server/public/temp", fileName);
           outStream = fs.createWriteStream(filePath);
           outStream.on("finish", function() {
             if (isCallbackInvoked) return;

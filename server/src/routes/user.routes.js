@@ -1,5 +1,4 @@
 import express from "express";
-
 import { registerUser } from "../controllers/auth.controller.js";
 import { logUserIn } from "../controllers/auth.controller.js"
 

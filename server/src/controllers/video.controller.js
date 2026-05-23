@@ -33,10 +33,9 @@ const uploadVideo = asyncHandler(
       title,
       description,
       thumbnail: uploadedThumbnail.url,
-      isPublic,
       owner: req.authUser._id,
       duration: uploadedVideo.duration,
-      keywords: keywordsArr,
+      category
     });
 
     const filteredVideo = video.toObject();
