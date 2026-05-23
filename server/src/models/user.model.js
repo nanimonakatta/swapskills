@@ -1,16 +1,16 @@
-import { Schema, Model } from "mongoose"
+import { Schema, model } from "mongoose"
 
 const userSchema = new Schema({
-  username: { type: string, required: true, unique: true },
-  password: { type: string, required: true, unique: true },
-  email: { type: email, required: true, unique: true },
-  fullName: { type: string, required: true },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  fullName: { type: String, required: true },
   balance: { type: Number, default: 500 },
-  skills: { type: [string] },
-  interest: { type: [string] },
-  coursesCompleted: { type: Schema.types.Objectid, default: 0 },
-  coursesTaught: { type: Schema.types.Objectid, default: 0 },
-  role: { type: [string], enum: ["student", "teacher"], requied: true }
+  skills: { type: [String] },
+  interest: { type: [String] },
+  coursesCompleted: { type: Schema.Types.ObjectId, default: 0 },
+  coursesTaught: { type: Schema.Types.ObjectId, default: 0 },
+  role: { type: [String], enum: ["student", "teacher"], required: true }
 })
 
-export const User = Model("User", userSchema);
+export const User = model("User", userSchema);
