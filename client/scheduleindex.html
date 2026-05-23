@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSwap — Schedule</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="schedulestyle.css"/>
+</head>
+<body>
+
+  <!-- ══ TOAST ══ -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⟳</div>
+      <span class="logo-text">SkillSwap</span>
+    </div>
+
+    <nav class="nav-tabs">
+      <a href="page1index.html" class="nav-btn" onclick="navigate('explore')">🗺 Explore</a>
+      <a href="#" class="nav-btn active" onclick="navigate('calendar')">📅 Schedule</a>
+      <a href="#" class="nav-btn" onclick="navigate('wallet')">💰 Wallet</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="credit-badge">⏱ <span id="creditCount">7</span> credits</div>
+      <div class="avatar-pill">YO</div>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <h2>Your Schedule</h2>
+      <p>Book sessions and manage your upcoming exchanges.</p>
+    </div>
+
+    <!-- ── Week Calendar Strip ── -->
+    <div class="week-strip" id="weekStrip"></div>
+
+    <!-- ── Two-column layout ── -->
+    <div class="schedule-grid">
+
+      <!-- LEFT: Time Slots -->
+      <div class="col-left">
+        <p class="section-label" id="slotLabel">Available Sessions</p>
+        <div id="timeSlots"></div>
+      </div>
+
+      <!-- RIGHT: Confirmed Exchanges -->
+      <div class="col-right">
+        <p class="section-label">Confirmed Exchanges</p>
+        <div id="confirmedList"></div>
+
+        <!-- Book new session CTA -->
+        <div class="empty-cta">
+          <p>Looking for a new session?</p>
+          <button class="btn-dark" onclick="showToast('Switching to Explore — feature demo 🚀')">Browse Skills →</button>
+        </div>
+      </div>
+
+    </div><!-- /schedule-grid -->
+
+  </main><!-- /main -->
+
+  <!-- ══ BOOKING MODAL ══ -->
+  <div class="modal-backdrop hidden" id="bookingBackdrop" onclick="closeBookingModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+
+      <div class="modal-header">
+        <p class="modal-title">Book a Session</p>
+        <button class="close-btn" onclick="closeBookingModal()">×</button>
+      </div>
+
+      <!-- Skill info banner -->
+      <div class="booking-info-bar" id="bookingInfoBar"></div>
+
+      <p class="pick-label">Pick a time slot</p>
+      <div class="slot-options" id="slotOptions"></div>
+
+      <!-- Credit summary -->
+      <div class="credit-summary" id="creditSummary"></div>
+
+      <button class="btn-confirm" id="confirmBtn" onclick="confirmBooking()" disabled>
+        Select a time slot first
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ══ ADD SESSION MODAL ══ -->
+  <div class="modal-backdrop hidden" id="addSessionBackdrop" onclick="closeAddModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+
+      <div class="modal-header">
+        <p class="modal-title">Add a Session</p>
+        <button class="close-btn" onclick="closeAddModal()">×</button>
+      </div>
+
+      <div class="add-skill-grid" id="addSkillGrid"></div>
+
+    </div>
+  </div>
+
+  <script src="schedulejavascript.js"></script>
+</body>
+</html>
