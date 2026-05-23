@@ -129,14 +129,50 @@ const logoutUser = asyncHandler(
 
 const logUserIn = asyncHandler(
   async (req, res) => {
-    
-  const validateSchema = z.object({
-    username: z.string().min(3).max(24).trim().toLowerCase()(),
-    password: z.string().min(8).max(50),
-    email: z.email()
+    const validateSchema = z.object({
+      username: z.string().min(3).max(24).trim().toLowerCase().optional(),
+      password: z.string().min(8).max(50),
+      email: z.email().optional()
+    }).refine((data) => data.username || data.email, {
+      message: "either username or email must be provided to log you in.",
+      path: ["username"]
+    } )
+
+    const parsedData = validateSchema.safeParse(req.body || {});
+
+    if (!parsedData.success) {
+      console.log(parsedData.error.issues)
+      throw new ApiError(400, "invalid data provided")
+    }
+
+    const data = parsedData.data;
+
+    const foundUser = await User.findOne({
+      $or: [
+        { username: data.username },
+        { email: data.email }
+      ]
+    });
+
+    if (!foundUser) {
+      throw new ApiError(404, "user not found")
+    };
+
+    const isPasswordCorrect = await foundUser.isPasswordCorrect(data.password);
+
+    if (!isPasswordCorrect) {
+      throw new ApiError(403, "incorrect credentials")
+    }
+
+    return res.status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json(
+        new ApiResponse(201, loggedInUser, "you have been signed up!!")
+      );
   })
-})
 
 export {
-  registerUser
+  registerUser,
+  logUserIn
 };
