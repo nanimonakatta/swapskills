@@ -4,17 +4,20 @@ import jwt from "jsonwebtoken";
 import { Schema, model } from "mongoose"
 
 const userSchema = new Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
   fullName: { type: String, required: true },
   balance: { type: Number, default: 500 },
   skills: { type: [String] },
   interest: { type: [String] },
   coursesCompleted: { type: Schema.Types.ObjectId, ref: "Video" },
   coursesTaught: { type: Schema.Types.ObjectId, ref: "Video" },
-  role: { type: [String], enum: ["student", "teacher"], required: true }
-});
+  role: { type: [String], enum: ["student", "teacher"], required: true },
+  refreshToken: {
+    type: String
+  }
+}, { timeStamps: true });
 
 userSchema.pre("save", async function(next) {
   if (!this.isModified) return;
